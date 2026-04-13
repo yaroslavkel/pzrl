@@ -78,19 +78,17 @@ void Vector::pushFront(const ValueType& value){
 		new_capacity = (size_t)(new_capacity * _multiplicativeCoef);
 		ValueType* new_data = new ValueType[new_capacity];
 		for (size_t i = 0; i < _size; i++){
-			new_data[i + 1] = _data[i];
+			new_data[i] = _data[i];
 		}
 		delete[] _data;
-		new_data[0] = value;
+		
 		_data = new_data;
 		_capacity = new_capacity;
 	}
-	else{
-		for (size_t i = _size - 1; i > 0; i--){
-			_data[i + 1] = _data[i];
-		}
-		_data[0] = value;
+	for (size_t i = _size; i > 0; --i){
+		_data[i] = _data[i - 1];
 	}
+	_data[0] = value;
 	++_size;
 }
 void Vector::insert(const ValueType& value, size_t pos){	
@@ -143,7 +141,7 @@ void Vector::insert(const ValueType* values, size_t size, size_t pos){
 				new_data[i] = _data[i];
 			}
 			else if (pos <= i  && i < pos + size){
-				new_data[i] = values[i - size];
+				new_data[i] = values[i - pos];
 			}
 			else {
 				new_data[i] = _data[i - size];
@@ -170,6 +168,9 @@ void Vector::popBack(){
 	if (_size > 0){
 		--_size;
 	}
+	else {
+		throw std::runtime_error("Empty vector");
+	}
 }
 void Vector::popFront(){
 	if (_size > 0){
@@ -177,6 +178,9 @@ void Vector::popFront(){
 			_data[i] = _data[i + 1];
 		}
 		--_size;
+	}
+	else {
+		throw std::runtime_error("Empty vector");
 	}
 }
 void Vector::erase(size_t pos, size_t count){
