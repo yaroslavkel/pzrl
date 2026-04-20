@@ -23,6 +23,6 @@ size_t StackList::size() const {
 }
 IStackImplementation* StackList::clone() const {
 	StackList* newStack = new StackList();
-	newStack->_data = this->_data;
+	newStack->_data = List::DoubleLinkedList(this->_data);
 	return newStack;
 }

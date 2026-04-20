@@ -1,9 +1,9 @@
 #pragma once
 #include "StackImplementation.h"
-#include <vector>
+#include "vector.h"
 class StackVector : public IStackImplementation {
 	private:
-		std::vector<ValueType> _data;
+		Vector _data;
 	public:
 		void push(const ValueType& value) override;
 		void pop() override;

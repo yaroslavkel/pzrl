@@ -15,7 +15,7 @@ int main() {
    
     Stack s2(StackContainer::List);
     s2.push(5.5);
-    std::cout << "List stack top: " << s2.top() <
+    std::cout << "List stack top: " << s2.top() << std::endl;
     Stack s3(s1);
     std::cout << "Copied stack top: " << s3.top() << std::endl;
     

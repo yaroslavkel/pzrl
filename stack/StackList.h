@@ -1,9 +1,9 @@
 #pragma once
 #include "StackImplementation.h"
-#include <list>
+#include "dlist.h"
 class StackList : public IStackImplementation {
 	private:
-		std::list<ValueType> _data;
+        	List::DoubleLinkedList _data;
 	public:
 		void push(const ValueType& value) override;
 		void pop() override;
