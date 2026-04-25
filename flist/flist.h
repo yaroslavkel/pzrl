@@ -1,5 +1,6 @@
 #pragma once
-#include <cstddef>
+#include <iostream>
+#include <utility>
 class flist {
 	private:
 		struct Node{
@@ -16,7 +17,6 @@ class flist {
 		double* find(double n);
 		const double* find(double n) const;
 		void display() const;
-		bool isEmpty() const;
-		double* cycle();
-		const double* cycle() const;
+		std::pair<Node*, size_t> cycle();
+		std::pair<const Node*, size_t> cycle() const;
 };

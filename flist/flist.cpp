@@ -82,7 +82,7 @@ const double* flist::find(double n) const{
 	}
 	return nullptr;
 }
-double* flist::cycle(){
+std::pair<Node*, size_t> flist::cycle(){
 	Node* slow = head;
 	Node* fast = head;
 	while (fast && fast->next){
@@ -94,14 +94,21 @@ double* flist::cycle(){
 				slow = slow->next;
 				fast = fast->next;
 			}
-			return &(slow->num);
+			size_t length = 1;
+			Node* cs = slow;
+			Node* ptr = cs->next;
+			while (ptr != cs){
+				length++;
+				ptr = ptr->next;
+			}
+			return {cs, length};
 		}
 	}
-	return nullptr;
+	return {nullptr, 0};
 }
-const double* flist::cycle() const {
-	Node* slow = head;
-	Node* fast = head;
+std::pair<const Node*, size_t> flist::cycle() const {
+	const Node* slow = head;
+	const Node* fast = head;
 	while (fast && fast->next){
 		slow = slow->next;
 		fast = fast->next->next;
@@ -111,11 +118,19 @@ const double* flist::cycle() const {
 				slow = slow->next;
 				fast = fast->next;
 			}
-			return &(slow->num);
+			size_t length = 1;
+			const Node* cs = slow;
+			const Node* ptr = cs->next;
+			while (ptr != cs){
+				length++;
+				ptr = ptr->next;
+			}
+			return {slow, length};
 		}
 	}
-	return nullptr;
+	return {nullptr, 0};
 }
+
 
 
 
