@@ -1,5 +1,6 @@
 #include "flist.h"
 #include <iostream>
+#include <stdexcept>
 flist::flist() : head(nullptr) {}
 void flist::display() const{
     Node* ptr = head;
@@ -81,3 +82,40 @@ const double* flist::find(double n) const{
 	}
 	return nullptr;
 }
+double* flist::cycle(){
+	Node* slow = head;
+	Node* fast = head;
+	while (fast && fast->next){
+		slow = slow->next;
+		fast = fast->next->next;
+		if (slow == fast){
+			slow = head;
+			while (slow != fast){
+				slow = slow->next;
+				fast = fast->next;
+			}
+			return &(slow->num);
+		}
+	}
+	return nullptr;
+}
+const double* flist::cycle() const {
+	Node* slow = head;
+	Node* fast = head;
+	while (fast && fast->next){
+		slow = slow->next;
+		fast = fast->next->next;
+		if (slow == fast){
+			slow = head;
+			while (slow != fast){
+				slow = slow->next;
+				fast = fast->next;
+			}
+			return &(slow->num);
+		}
+	}
+	return nullptr;
+}
+
+
+

@@ -17,5 +17,6 @@ class flist {
 		const double* find(double n) const;
 		void display() const;
 		bool isEmpty() const;
-		const double& top() const;
+		double* cycle();
+		const double* cycle() const;
 };
