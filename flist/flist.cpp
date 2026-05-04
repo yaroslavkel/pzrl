@@ -18,6 +18,11 @@ flist::~flist(){
 		std::cout << "The list is empty!" << std::endl;
 		return;
 	}
+	std::pair<Node*, size_t> result = cycle();
+	Node* cycle_node = result.first;
+	if (cycle_node){
+		cycle_node->next = nullptr;
+	}
 	while (head != nullptr){
 		pop_back();
 	}
@@ -82,7 +87,7 @@ const double* flist::find(double n) const{
 	}
 	return nullptr;
 }
-std::pair<Node*, size_t> flist::cycle(){
+std::pair<flist::Node*, size_t> flist::cycle(){
 	Node* slow = head;
 	Node* fast = head;
 	while (fast && fast->next){
@@ -106,7 +111,7 @@ std::pair<Node*, size_t> flist::cycle(){
 	}
 	return {nullptr, 0};
 }
-std::pair<const Node*, size_t> flist::cycle() const {
+std::pair<const flist::Node*, size_t> flist::cycle() const {
 	const Node* slow = head;
 	const Node* fast = head;
 	while (fast && fast->next){
@@ -130,7 +135,23 @@ std::pair<const Node*, size_t> flist::cycle() const {
 	}
 	return {nullptr, 0};
 }
-
-
+void flist::create_cycle(size_t idx){
+	if (size() <= idx){
+		return;
+	}
+	Node* ptr = head;
+	Node* cycle_node = head;
+	size_t cycle_idx = 0;
+	while (cycle_idx < idx && cycle_node){
+		cycle_node = cycle_node->next;
+		cycle_idx++;
+	}
+	while (ptr && ptr->next){
+		ptr = ptr->next;
+	}
+	if (ptr && cycle_node){
+		ptr->next = cycle_node;
+	}
+}
 
 

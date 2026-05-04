@@ -19,4 +19,5 @@ class flist {
 		void display() const;
 		std::pair<Node*, size_t> cycle();
 		std::pair<const Node*, size_t> cycle() const;
+		void create_cycle(size_t idx);
 };
