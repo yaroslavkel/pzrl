@@ -29,11 +29,11 @@ int main(){
 	cycle_list.create_cycle(1);
 	auto cycle_result = cycle_list.cycle();
 	if (cycle_result.first == nullptr){
-		std::cout << " Somehow there is no cycle!" << std::endl;
+		std::cout << "Somehow there is no cycle!" << std::endl;
 	}
 	else {
 		std::cout << "There is a cycle!" << std::endl;
+		std::cout << "Start of the cycle: " << cycle_result.first->num << " Length: " << cycle_result.second << std::endl;
 	}
-	std::cout << "Start of the cycle: " << cycle_result.first->num << " Length: " << cycle_result.second << std::endl;
 }
 
