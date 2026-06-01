@@ -11,7 +11,7 @@ size_t HashTable::hash_function(const KeyType &key) const
 {
     size_t hash = 0;
     for (char c : key)
-        hash = hash * 31 + static_cast<unsigned char>(c);
+        hash = hash * 67 + static_cast<unsigned char>(c);
     return hash % static_cast<size_t>(_capacity);
 }
 
@@ -27,7 +27,7 @@ void HashTable::insert(const KeyType &key, const ValueType &value)
             {
                 size_t idx = 0;
                 for (char c : pair.first)
-                    idx = idx * 31 + static_cast<unsigned char>(c);
+                    idx = idx * 67 + static_cast<unsigned char>(c);
                 idx %= static_cast<size_t>(newCapacity);
                 newTable[idx].emplace_back(pair);
             }
