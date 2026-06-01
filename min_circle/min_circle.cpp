@@ -3,13 +3,9 @@
 
 static constexpr double EPS = 1e-8;
 
-// ── Point2D ──────────────────────────────────────────────────────────────────
-
 bool Point2D::operator==(const Point2D& other) const {
     return std::abs(x - other.x) < EPS && std::abs(y - other.y) < EPS;
 }
-
-// ── Circle ───────────────────────────────────────────────────────────────────
 
 bool Circle::contains(const Point2D& point) const {
     return distance(center, point) <= radius + EPS;
@@ -19,12 +15,9 @@ bool Circle::contains(const LineSegment& segment) const {
     return contains(segment.start) && contains(segment.end);
 }
 
-// Convexity guarantees the interior, so checking endpoints + midpoint suffices.
 bool Circle::containsEntireSegment(const LineSegment& segment) const {
     return contains(segment.start) && contains(segment.end) && contains(findMidPoint(segment));
 }
-
-// ── Geometry helpers ─────────────────────────────────────────────────────────
 
 double distanceSquared(const Point2D& p1, const Point2D& p2) {
     double dx = p1.x - p2.x, dy = p1.y - p2.y;
@@ -47,7 +40,6 @@ Circle circleFrom3Points(const Point2D& p1, const Point2D& p2, const Point2D& p3
     double D = 2.0 * (ax * (by - cy) + bx * (cy - ay) + cx * (ay - by));
 
     if (std::abs(D) < EPS) {
-        // Collinear: build from the two most distant points.
         double d12 = distanceSquared(p1, p2);
         double d13 = distanceSquared(p1, p3);
         double d23 = distanceSquared(p2, p3);
@@ -66,8 +58,6 @@ Circle circleFrom3Points(const Point2D& p1, const Point2D& p2, const Point2D& p3
     Point2D center = {ux, uy};
     return {center, distance(center, p1)};
 }
-
-// ── Welzl's algorithm ────────────────────────────────────────────────────────
 
 Circle minCircleHelper(std::vector<Point2D>& points, std::vector<Point2D> boundary, size_t n) {
     if (n == 0 || boundary.size() == 3) {
@@ -94,8 +84,6 @@ Circle minCircle(std::vector<Point2D> points) {
     std::shuffle(points.begin(), points.end(), std::mt19937{std::random_device{}()});
     return minCircleHelper(points, {}, points.size());
 }
-
-// ── Segment helpers ───────────────────────────────────────────────────────────
 
 Point2D findMidPoint(const LineSegment& segment) {
     return {(segment.start.x + segment.end.x) / 2.0,
@@ -134,8 +122,6 @@ std::vector<Point2D> extractPointsFromSegments(const std::vector<LineSegment>& s
 
     return points;
 }
-
-// ── Main API ─────────────────────────────────────────────────────────────────
 
 Circle MinimumEnclosingCircleForSegments(const std::vector<LineSegment>& segments) {
     if (segments.empty())
