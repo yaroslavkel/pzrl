@@ -16,7 +16,7 @@ bool Circle::contains(const LineSegment& segment) const {
 }
 
 bool Circle::containsEntireSegment(const LineSegment& segment) const {
-    return contains(segment.start) && contains(segment.end) && contains(findMidPoint(segment));
+    return contains(segment.start) && contains(segment.end);
 }
 
 double distanceSquared(const Point2D& p1, const Point2D& p2) {
@@ -112,7 +112,6 @@ std::vector<Point2D> extractPointsFromSegments(const std::vector<LineSegment>& s
     for (const auto& seg : segments) {
         points.push_back(seg.start);
         points.push_back(seg.end);
-        points.push_back(findMidPoint(seg));
     }
 
     for (size_t i = 0; i < segments.size(); ++i)
