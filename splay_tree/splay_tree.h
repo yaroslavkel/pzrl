@@ -75,7 +75,7 @@ public:
     const Value* search(const Key& key) const {
         Node* curr = root_;
         while (curr) {
-            if (key < curr->key)      curr = curr->left;
+            if (key < curr->key) curr = curr->left;
             else if (curr->key < key) curr = curr->right;
             else                      return &curr->value;
         }
@@ -91,7 +91,7 @@ public:
 
 private:
     struct Node {
-        Key   key;
+        Key key;
         Value value;
         Node* left;
         Node* right;
@@ -100,7 +100,7 @@ private:
             : key(k), value(v), left(nullptr), right(nullptr), parent(nullptr) {}
     };
 
-    Node*  root_;
+    Node* root_;
     size_t size_;
 
     void destroyTree(Node* node) {
@@ -115,10 +115,10 @@ private:
         x->right = y->left;
         if (y->left) y->left->parent = x;
         y->parent = x->parent;
-        if (!x->parent)                root_ = y;
+        if (!x->parent) root_ = y;
         else if (x == x->parent->left) x->parent->left = y;
-        else                           x->parent->right = y;
-        y->left   = x;
+        else x->parent->right = y;
+        y->left = x;
         x->parent = y;
     }
 
@@ -127,9 +127,9 @@ private:
         x->left = y->right;
         if (y->right) y->right->parent = x;
         y->parent = x->parent;
-        if (!x->parent)                 root_ = y;
+        if (!x->parent) root_ = y;
         else if (x == x->parent->right) x->parent->right = y;
-        else                            x->parent->left  = y;
+        else x->parent->left  = y;
         y->right  = x;
         x->parent = y;
     }
@@ -140,7 +140,7 @@ private:
             Node* g = p->parent;
             if (!g) {
                 if (x == p->left) rotateRight(p);
-                else              rotateLeft(p);
+                else rotateLeft(p);
             } else if (x == p->left && p == g->left) {
                 rotateRight(g);
                 rotateRight(p);
@@ -174,7 +174,7 @@ private:
         if (!node) return true;
         if (minKey && !((*minKey) < node->key)) return false;
         if (maxKey && !(node->key < (*maxKey))) return false;
-        return isValidBSTHelper(node->left,  minKey,    &node->key) &&
+        return isValidBSTHelper(node->left, minKey, &node->key) &&
                isValidBSTHelper(node->right, &node->key, maxKey);
     }
 };
